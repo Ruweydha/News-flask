@@ -11,7 +11,7 @@ class Source:
 class News:
     def __init__(self, author, content, title, url, urlToImage, publishedAt ):
         self.author = author
-        self.description = content 
+        self.content = content 
         self.title = title
         self.url = url
         self.urlToImage = urlToImage
