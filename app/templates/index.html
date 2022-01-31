@@ -1,15 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-</head>
-<body>
-    <h3>News source</h3>
+{% extends 'base.html' %}
+
+<!-- Content block -->
+{% block content %}
     <div>
-        {% for general_source in general %}
+        <p style="color: green;">Ruweydha</p>
+        <h1 class="danger">Nancy</h1>
+    
+                    {% for article_published in articles[:0] %}
+                                <h3 style="color: orange;">{{article_published.title}}</h3>
+                            <img src="{{article_published.urlToImage}}" class="img-responsive first-img" alt="Article image">
+                            
+                        <ul>
+                            <li style="color: red;">{{article_published.author}}</li>
+                            <li id="hello">{{article_published.content}}</li>
+                            <a href="{{article_published.url}}">Read full article</a>
+                        </ul>
+                    {% endfor %}
+                
+    
+
+    
+        {% for article_published in articles[2:5] %}
+        <h3>{{article_published.title}}</h3>
+        <img src="{{article_published.urlToImage}}" alt="Article image">
+         <ul>
+             <li>{{article_published.author}}</li>
+             <li>{{article_published.content}}</li>
+             <a href="{{article_published.url}}">Read full article</a>
+         </ul>
+      {% endfor %}
+      <h3>News sources</h3>
+        {% for general_source in general[:30] %}
          <ul>
              <li>{{general_source.name}}</li>
              <li>{{general_source.description}}</li>
@@ -17,7 +38,5 @@
              <a href="/source/{{general_source.id}}">View site</a>
          </ul>
       {% endfor %}
-    </div>
     
-</body>
-</html>
+{% endblock %}
