@@ -12,11 +12,12 @@ def index():
     '''
     #Getting general news
     general_sources = get_source('business')
+    news = view_source('abc-news')
 
     print(general_sources)
     title = 'Home - Welcome to News Api'
 
-    return render_template('index.html', title = title, general = general_sources)
+    return render_template('index.html', title = title, general = general_sources, articles = news)
 
 @main.route('/source/<id>')
 def source(id):
