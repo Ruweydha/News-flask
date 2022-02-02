@@ -1,7 +1,6 @@
-from unicodedata import name
 from flask import render_template
 from . import main
-from ..requests import get_source, view_source
+from ..requests import get_source, view_source, view_category
 from ..models import Source, News
 
 #views
@@ -10,7 +9,6 @@ def index():
     '''
     View root page function that returns the home page and it's data
     '''
-    #Getting general news
     general_sources = get_source('business')
     news = view_source('abc-news')
 
@@ -22,8 +20,13 @@ def index():
 @main.route('/source/<id>')
 def source(id):
     sources = view_source(id)
-
     print(sources)
-    # name = f'{sources.name}'
-
+    
     return render_template('source.html', article = sources )
+
+@main.route('/category/<string:name>')
+def category(name):
+    categories = view_category(name)
+    print(categories)
+
+    return render_template('category.html', News = categories)
