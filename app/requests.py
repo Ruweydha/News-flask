@@ -2,6 +2,8 @@ from distutils.file_util import move_file
 from unicodedata import name
 import urllib.request, json
 from .models import Source, News
+from dateutil.parser import isoparse
+from dateutil.tz import UTC
 
 #getting Api key
 api_key = None
@@ -54,10 +56,14 @@ def process_results2(articles_list):
          article_url = article_item.get('url')
          urlToImage = article_item.get('urlToImage')
          publishedAt = article_item.get('publishedAt')
+
+         date_published=isoparse(publishedAt)
+         date_published.astimezone(UTC)
+         new_publication_date=date_published.strftime("%b %d, %Y %H:%M:%S")
           
-         if urlToImage: 
-            articles_object = News(author, content, title, article_url, urlToImage, publishedAt)
-            articles_results.append(articles_object)
+         if urlToImage and content and article_url: 
+            articles_object = News(author, content, title, article_url, urlToImage, new_publication_date)
+            articles_results.append(articles_object)    
 
     return articles_results        
 
@@ -75,3 +81,18 @@ def view_source(id):
             source_articles = process_results2(source_articles_list)  
 
     return source_articles
+
+def view_category(category):
+    view_category_url = f"{base_url}top-headlines?category={category}&apiKey={api_key}"
+    with urllib.request.urlopen(view_category_url) as url:
+        category_details_data = url.read()
+        category_articles_response = json.loads(category_details_data)
+
+        category_articles = None
+
+        if category_articles_response['articles']:
+         category_articles_list = category_articles_response['articles'] 
+         category_articles = process_results2(category_articles_list)
+    print(category_articles)
+    return category_articles     
+
