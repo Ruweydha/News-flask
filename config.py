@@ -1,6 +1,4 @@
-from distutils.command import config
-from distutils.debug import DEBUG
-from instance.config import NEWS_API_KEY
+# from instance.config import NEWS_API_KEY
 import os
 
 class Config:
