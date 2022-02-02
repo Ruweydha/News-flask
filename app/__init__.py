@@ -1,10 +1,7 @@
 from distutils.command.config import config
 from ensurepip import bootstrap
 from flask import Flask
-from flask_bootstrap import Bootstrap
 from config import config_options
-
-
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -12,11 +9,7 @@ def create_app(config_name):
     #Creating the app configurations
     app.config.from_object(config_options[config_name])
 
-    #Initializing flask extensions
-  
-
     #Registering the blueprint
-
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
