@@ -9,9 +9,17 @@ class NewsTest(unittest.TestCase):
         '''
         Set up method that will run before every test
         '''
-        self.new_news_article = News("Ruweydha","Hackathon has began", "Hackathon in kenta has began" "https://cnn.com", "imageurl", "21st January, 2022")
+        self.new_news_article = News("Ruweydha","Hackathon has began", "Hackathon in kenya has began" "https://cnn.com", "imageurl", "21st January, 2022")
+        
+    def test_init(self):
+        self.assertEqual(self.new_news_article.author, 'Ruweydha')
+        self.assertEqual(self.new_news_article.content, "Hackathon has began")
+        self.assertEqual(self.new_news_article.title, "Hackathon in kenya has began")
+        self.assertEqual(self.new_news_article.url, "https://cnn.com")
+        self.assertEqual(self.new_news_article.urlToImage, "imageurl")
+        self.assertEqual(self.new_news_article.publishedAt, "21st January, 2022")
 
     def test_instance(self):
         self.assertTrue(isinstance(self.new_news_article, News))    
-
+    
 
